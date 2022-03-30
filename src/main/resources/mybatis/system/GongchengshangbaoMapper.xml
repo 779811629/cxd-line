@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxd.project.system.gongchengshangbao.mapper.GongchengshangbaoMapper">
+    
+    <resultMap type="Gongchengshangbao" id="GongchengshangbaoResult">
+        <result property="id"    column="id"    />
+        <result property="sgdbh"    column="sgdbh"    />
+        <result property="sgry"    column="sgry"    />
+        <result property="xcqk"    column="xcqk"    />
+        <result property="xczp"    column="xczp"    />
+        <result property="dlcd"    column="dlcd"    />
+        <result property="qswz"    column="qswz"    />
+        <result property="qxsj"    column="qxsj"    />
+    </resultMap>
+
+    <sql id="selectGongchengshangbaoVo">
+        select id, sgdbh, sgry, xcqk, xczp, dlcd, qswz, qxsj from gongchengshangbao
+    </sql>
+
+    <select id="selectGongchengshangbaoList" parameterType="Gongchengshangbao" resultMap="GongchengshangbaoResult">
+        <include refid="selectGongchengshangbaoVo"/>
+        <where>  
+            <if test="sgdbh != null  and sgdbh != ''"> and sgdbh = #{sgdbh}</if>
+            <if test="sgry != null  and sgry != ''"> and sgry like concat('%', #{sgry}, '%')</if>
+            <if test="xcqk != null "> and xcqk = #{xcqk}</if>
+            <if test="xczp != null  and xczp != ''"> and xczp = #{xczp}</if>
+            <if test="dlcd != null  and dlcd != ''"> and dlcd = #{dlcd}</if>
+            <if test="qswz != null  and qswz != ''"> and qswz = #{qswz}</if>
+            <if test="qxsj != null "> and qxsj = #{qxsj}</if>
+        </where>
+    </select>
+    
+    <select id="selectGongchengshangbaoById" parameterType="String" resultMap="GongchengshangbaoResult">
+        <include refid="selectGongchengshangbaoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertGongchengshangbao" parameterType="Gongchengshangbao">
+        insert into gongchengshangbao
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="sgdbh != null">sgdbh,</if>
+            <if test="sgry != null">sgry,</if>
+            <if test="xcqk != null">xcqk,</if>
+            <if test="xczp != null">xczp,</if>
+            <if test="dlcd != null">dlcd,</if>
+            <if test="qswz != null">qswz,</if>
+            <if test="qxsj != null">qxsj,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="sgdbh != null">#{sgdbh},</if>
+            <if test="sgry != null">#{sgry},</if>
+            <if test="xcqk != null">#{xcqk},</if>
+            <if test="xczp != null">#{xczp},</if>
+            <if test="dlcd != null">#{dlcd},</if>
+            <if test="qswz != null">#{qswz},</if>
+            <if test="qxsj != null">#{qxsj},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGongchengshangbao" parameterType="Gongchengshangbao">
+        update gongchengshangbao
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sgdbh != null">sgdbh = #{sgdbh},</if>
+            <if test="sgry != null">sgry = #{sgry},</if>
+            <if test="xcqk != null">xcqk = #{xcqk},</if>
+            <if test="xczp != null">xczp = #{xczp},</if>
+            <if test="dlcd != null">dlcd = #{dlcd},</if>
+            <if test="qswz != null">qswz = #{qswz},</if>
+            <if test="qxsj != null">qxsj = #{qxsj},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteGongchengshangbaoById" parameterType="String">
+        delete from gongchengshangbao where id = #{id}
+    </delete>
+
+    <delete id="deleteGongchengshangbaoByIds" parameterType="String">
+        delete from gongchengshangbao where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

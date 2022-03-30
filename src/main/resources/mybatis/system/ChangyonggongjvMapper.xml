@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxd.project.system.changyonggongjv.mapper.ChangyonggongjvMapper">
+    
+    <resultMap type="Changyonggongjv" id="ChangyonggongjvResult">
+        <result property="id"    column="id"    />
+        <result property="anmsl"    column="anmsl"    />
+        <result property="lsdsl"    column="lsdsl"    />
+        <result property="jyxsl"    column="jyxsl"    />
+        <result property="jyst"    column="jyst"    />
+        <result property="cdq"    column="cdq"    />
+    </resultMap>
+
+    <sql id="selectChangyonggongjvVo">
+        select id, anmsl, lsdsl, jyxsl, jyst, cdq from changyonggongjv
+    </sql>
+
+    <select id="selectChangyonggongjvList" parameterType="Changyonggongjv" resultMap="ChangyonggongjvResult">
+        <include refid="selectChangyonggongjvVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectChangyonggongjvById" parameterType="String" resultMap="ChangyonggongjvResult">
+        <include refid="selectChangyonggongjvVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertChangyonggongjv" parameterType="Changyonggongjv">
+        insert into changyonggongjv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="anmsl != null">anmsl,</if>
+            <if test="lsdsl != null">lsdsl,</if>
+            <if test="jyxsl != null">jyxsl,</if>
+            <if test="jyst != null">jyst,</if>
+            <if test="cdq != null">cdq,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="anmsl != null">#{anmsl},</if>
+            <if test="lsdsl != null">#{lsdsl},</if>
+            <if test="jyxsl != null">#{jyxsl},</if>
+            <if test="jyst != null">#{jyst},</if>
+            <if test="cdq != null">#{cdq},</if>
+         </trim>
+    </insert>
+
+    <update id="updateChangyonggongjv" parameterType="Changyonggongjv">
+        update changyonggongjv
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="anmsl != null">anmsl = #{anmsl},</if>
+            <if test="lsdsl != null">lsdsl = #{lsdsl},</if>
+            <if test="jyxsl != null">jyxsl = #{jyxsl},</if>
+            <if test="jyst != null">jyst = #{jyst},</if>
+            <if test="cdq != null">cdq = #{cdq},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChangyonggongjvById" parameterType="String">
+        delete from changyonggongjv where id = #{id}
+    </delete>
+
+    <delete id="deleteChangyonggongjvByIds" parameterType="String">
+        delete from changyonggongjv where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

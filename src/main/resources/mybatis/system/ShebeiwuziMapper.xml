@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxd.project.system.shebeiwuzi.mapper.ShebeiwuziMapper">
+    
+    <resultMap type="Shebeiwuzi" id="ShebeiwuziResult">
+        <result property="id"    column="id"    />
+        <result property="wzmc"    column="wzmc"    />
+        <result property="gs"    column="gs"    />
+        <result property="dydj"    column="dydj"    />
+        <result property="derl"    column="derl"    />
+        <result property="dtrl"    column="dtrl"    />
+        <result property="dedl"    column="dedl"    />
+        <result property="jdkgs"    column="jdkgs"    />
+    </resultMap>
+
+    <sql id="selectShebeiwuziVo">
+        select id, wzmc, gs, dydj, derl, dtrl, dedl, jdkgs from shebeiwuzi
+    </sql>
+
+    <select id="selectShebeiwuziList" parameterType="Shebeiwuzi" resultMap="ShebeiwuziResult">
+        <include refid="selectShebeiwuziVo"/>
+        <where>  
+            <if test="wzmc != null  and wzmc != ''"> and wzmc = #{wzmc}</if>
+            <if test="dydj != null "> and dydj = #{dydj}</if>
+        </where>
+    </select>
+    
+    <select id="selectShebeiwuziById" parameterType="String" resultMap="ShebeiwuziResult">
+        <include refid="selectShebeiwuziVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShebeiwuzi" parameterType="Shebeiwuzi">
+        insert into shebeiwuzi
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="wzmc != null">wzmc,</if>
+            <if test="gs != null">gs,</if>
+            <if test="dydj != null">dydj,</if>
+            <if test="derl != null">derl,</if>
+            <if test="dtrl != null">dtrl,</if>
+            <if test="dedl != null">dedl,</if>
+            <if test="jdkgs != null">jdkgs,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="wzmc != null">#{wzmc},</if>
+            <if test="gs != null">#{gs},</if>
+            <if test="dydj != null">#{dydj},</if>
+            <if test="derl != null">#{derl},</if>
+            <if test="dtrl != null">#{dtrl},</if>
+            <if test="dedl != null">#{dedl},</if>
+            <if test="jdkgs != null">#{jdkgs},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShebeiwuzi" parameterType="Shebeiwuzi">
+        update shebeiwuzi
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="wzmc != null">wzmc = #{wzmc},</if>
+            <if test="gs != null">gs = #{gs},</if>
+            <if test="dydj != null">dydj = #{dydj},</if>
+            <if test="derl != null">derl = #{derl},</if>
+            <if test="dtrl != null">dtrl = #{dtrl},</if>
+            <if test="dedl != null">dedl = #{dedl},</if>
+            <if test="jdkgs != null">jdkgs = #{jdkgs},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShebeiwuziById" parameterType="String">
+        delete from shebeiwuzi where id = #{id}
+    </delete>
+
+    <delete id="deleteShebeiwuziByIds" parameterType="String">
+        delete from shebeiwuzi where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

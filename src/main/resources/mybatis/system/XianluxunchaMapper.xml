@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxd.project.system.xianluxuncha.mapper.XianluxunchaMapper">
+    
+    <resultMap type="Xianluxuncha" id="XianluxunchaResult">
+        <result property="id"    column="id"    />
+        <result property="bianhao"    column="bianhao"    />
+        <result property="luxianmingcheng"    column="luxianmingcheng"    />
+        <result property="luxianchengdu"    column="luxianchengdu"    />
+        <result property="dianxianganzongshu"    column="dianxianganzongshu"    />
+        <result property="xunchashijian"    column="xunchashijian"    />
+        <result property="xunchacishu"    column="xunchacishu"    />
+        <result property="xuncharenshu"    column="xuncharenshu"    />
+        <result property="xianluzhuangtai"    column="xianluzhuangtai"    />
+    </resultMap>
+
+    <sql id="selectXianluxunchaVo">
+        select id, bianhao, luxianmingcheng, luxianchengdu, dianxianganzongshu, xunchashijian, xunchacishu, xuncharenshu, xianluzhuangtai from xianluxuncha
+    </sql>
+
+    <select id="selectXianluxunchaList" parameterType="Xianluxuncha" resultMap="XianluxunchaResult">
+        <include refid="selectXianluxunchaVo"/>
+        <where>  
+            <if test="bianhao != null  and bianhao != ''"> and bianhao = #{bianhao}</if>
+        </where>
+    </select>
+    
+    <select id="selectXianluxunchaById" parameterType="String" resultMap="XianluxunchaResult">
+        <include refid="selectXianluxunchaVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertXianluxuncha" parameterType="Xianluxuncha">
+        insert into xianluxuncha
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="bianhao != null">bianhao,</if>
+            <if test="luxianmingcheng != null">luxianmingcheng,</if>
+            <if test="luxianchengdu != null">luxianchengdu,</if>
+            <if test="dianxianganzongshu != null">dianxianganzongshu,</if>
+            <if test="xunchashijian != null">xunchashijian,</if>
+            <if test="xunchacishu != null">xunchacishu,</if>
+            <if test="xuncharenshu != null">xuncharenshu,</if>
+            <if test="xianluzhuangtai != null">xianluzhuangtai,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="bianhao != null">#{bianhao},</if>
+            <if test="luxianmingcheng != null">#{luxianmingcheng},</if>
+            <if test="luxianchengdu != null">#{luxianchengdu},</if>
+            <if test="dianxianganzongshu != null">#{dianxianganzongshu},</if>
+            <if test="xunchashijian != null">#{xunchashijian},</if>
+            <if test="xunchacishu != null">#{xunchacishu},</if>
+            <if test="xuncharenshu != null">#{xuncharenshu},</if>
+            <if test="xianluzhuangtai != null">#{xianluzhuangtai},</if>
+         </trim>
+    </insert>
+
+    <update id="updateXianluxuncha" parameterType="Xianluxuncha">
+        update xianluxuncha
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bianhao != null">bianhao = #{bianhao},</if>
+            <if test="luxianmingcheng != null">luxianmingcheng = #{luxianmingcheng},</if>
+            <if test="luxianchengdu != null">luxianchengdu = #{luxianchengdu},</if>
+            <if test="dianxianganzongshu != null">dianxianganzongshu = #{dianxianganzongshu},</if>
+            <if test="xunchashijian != null">xunchashijian = #{xunchashijian},</if>
+            <if test="xunchacishu != null">xunchacishu = #{xunchacishu},</if>
+            <if test="xuncharenshu != null">xuncharenshu = #{xuncharenshu},</if>
+            <if test="xianluzhuangtai != null">xianluzhuangtai = #{xianluzhuangtai},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteXianluxunchaById" parameterType="String">
+        delete from xianluxuncha where id = #{id}
+    </delete>
+
+    <delete id="deleteXianluxunchaByIds" parameterType="String">
+        delete from xianluxuncha where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

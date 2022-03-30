@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxd.project.system.shudianguzhang.mapper.ShudianguzhangMapper">
+    
+    <resultMap type="Shudianguzhang" id="ShudianguzhangResult">
+        <result property="id"    column="id"    />
+        <result property="ssdgzqy"    column="ssdgzqy"    />
+        <result property="gzqzsj"    column="gzqzsj"    />
+        <result property="gzyy"    column="gzyy"    />
+        <result property="ssbdz"    column="ssbdz"    />
+        <result property="sfhfsd"    column="sfhfsd"    />
+        <result property="jxrrqm"    column="jxrrqm"    />
+    </resultMap>
+
+    <sql id="selectShudianguzhangVo">
+        select id, ssdgzqy, gzqzsj, gzyy, ssbdz, sfhfsd, jxrrqm from shudianguzhang
+    </sql>
+
+    <select id="selectShudianguzhangList" parameterType="Shudianguzhang" resultMap="ShudianguzhangResult">
+        <include refid="selectShudianguzhangVo"/>
+        <where>  
+            <if test="ssdgzqy != null  and ssdgzqy != ''"> and ssdgzqy = #{ssdgzqy}</if>
+            <if test="gzqzsj != null "> and gzqzsj = #{gzqzsj}</if>
+        </where>
+    </select>
+    
+    <select id="selectShudianguzhangById" parameterType="String" resultMap="ShudianguzhangResult">
+        <include refid="selectShudianguzhangVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShudianguzhang" parameterType="Shudianguzhang">
+        insert into shudianguzhang
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="ssdgzqy != null">ssdgzqy,</if>
+            <if test="gzqzsj != null">gzqzsj,</if>
+            <if test="gzyy != null">gzyy,</if>
+            <if test="ssbdz != null">ssbdz,</if>
+            <if test="sfhfsd != null">sfhfsd,</if>
+            <if test="jxrrqm != null">jxrrqm,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="ssdgzqy != null">#{ssdgzqy},</if>
+            <if test="gzqzsj != null">#{gzqzsj},</if>
+            <if test="gzyy != null">#{gzyy},</if>
+            <if test="ssbdz != null">#{ssbdz},</if>
+            <if test="sfhfsd != null">#{sfhfsd},</if>
+            <if test="jxrrqm != null">#{jxrrqm},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShudianguzhang" parameterType="Shudianguzhang">
+        update shudianguzhang
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ssdgzqy != null">ssdgzqy = #{ssdgzqy},</if>
+            <if test="gzqzsj != null">gzqzsj = #{gzqzsj},</if>
+            <if test="gzyy != null">gzyy = #{gzyy},</if>
+            <if test="ssbdz != null">ssbdz = #{ssbdz},</if>
+            <if test="sfhfsd != null">sfhfsd = #{sfhfsd},</if>
+            <if test="jxrrqm != null">jxrrqm = #{jxrrqm},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShudianguzhangById" parameterType="String">
+        delete from shudianguzhang where id = #{id}
+    </delete>
+
+    <delete id="deleteShudianguzhangByIds" parameterType="String">
+        delete from shudianguzhang where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

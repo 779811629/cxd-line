@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改线路巡查信息')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-xianluxuncha-edit" th:object="${xianluxuncha}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">编号：</label>
+                <div class="col-sm-8">
+                    <input name="bianhao" th:field="*{bianhao}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">线路名称：</label>
+                <div class="col-sm-8">
+                    <input name="luxianmingcheng" th:field="*{luxianmingcheng}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">线路长度：</label>
+                <div class="col-sm-8">
+                    <input name="luxianchengdu" th:field="*{luxianchengdu}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">电线杆总数：</label>
+                <div class="col-sm-8">
+                    <input name="dianxianganzongshu" th:field="*{dianxianganzongshu}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">巡查时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="xunchashijian" th:value="${#dates.format(xianluxuncha.xunchashijian, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">巡查次数：</label>
+                <div class="col-sm-8">
+                    <input name="xunchacishu" th:field="*{xunchacishu}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">巡查人数：</label>
+                <div class="col-sm-8">
+                    <input name="xuncharenshu" th:field="*{xuncharenshu}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">线路状态：</label>
+                <div class="col-sm-8">
+                    <input name="xianluzhuangtai" th:field="*{xianluzhuangtai}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "system/xianluxuncha";
+        $("#form-xianluxuncha-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-xianluxuncha-edit').serialize());
+            }
+        }
+
+        $("input[name='xunchashijian']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

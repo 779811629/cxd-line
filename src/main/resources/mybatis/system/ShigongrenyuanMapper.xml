@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxd.project.system.shigongrenyuan.mapper.ShigongrenyuanMapper">
+    
+    <resultMap type="Shigongrenyuan" id="ShigongrenyuanResult">
+        <result property="id"    column="id"    />
+        <result property="xm"    column="xm"    />
+        <result property="nl"    column="nl"    />
+        <result property="xb"    column="xb"    />
+        <result property="zw"    column="zw"    />
+        <result property="szfd"    column="szfd"    />
+        <result property="wcqk"    column="wcqk"    />
+        <result property="lxfs"    column="lxfs"    />
+        <result property="zyzmc"    column="zyzmc"    />
+    </resultMap>
+
+    <sql id="selectShigongrenyuanVo">
+        select id, xm, nl, xb, zw, szfd, wcqk, lxfs, zyzmc from shigongrenyuan
+    </sql>
+
+    <select id="selectShigongrenyuanList" parameterType="Shigongrenyuan" resultMap="ShigongrenyuanResult">
+        <include refid="selectShigongrenyuanVo"/>
+        <where>  
+            <if test="xm != null  and xm != ''"> and xm like concat('%', #{xm}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectShigongrenyuanById" parameterType="String" resultMap="ShigongrenyuanResult">
+        <include refid="selectShigongrenyuanVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShigongrenyuan" parameterType="Shigongrenyuan">
+        insert into shigongrenyuan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="xm != null">xm,</if>
+            <if test="nl != null">nl,</if>
+            <if test="xb != null">xb,</if>
+            <if test="zw != null">zw,</if>
+            <if test="szfd != null">szfd,</if>
+            <if test="wcqk != null">wcqk,</if>
+            <if test="lxfs != null">lxfs,</if>
+            <if test="zyzmc != null">zyzmc,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="xm != null">#{xm},</if>
+            <if test="nl != null">#{nl},</if>
+            <if test="xb != null">#{xb},</if>
+            <if test="zw != null">#{zw},</if>
+            <if test="szfd != null">#{szfd},</if>
+            <if test="wcqk != null">#{wcqk},</if>
+            <if test="lxfs != null">#{lxfs},</if>
+            <if test="zyzmc != null">#{zyzmc},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShigongrenyuan" parameterType="Shigongrenyuan">
+        update shigongrenyuan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="xm != null">xm = #{xm},</if>
+            <if test="nl != null">nl = #{nl},</if>
+            <if test="xb != null">xb = #{xb},</if>
+            <if test="zw != null">zw = #{zw},</if>
+            <if test="szfd != null">szfd = #{szfd},</if>
+            <if test="wcqk != null">wcqk = #{wcqk},</if>
+            <if test="lxfs != null">lxfs = #{lxfs},</if>
+            <if test="zyzmc != null">zyzmc = #{zyzmc},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShigongrenyuanById" parameterType="String">
+        delete from shigongrenyuan where id = #{id}
+    </delete>
+
+    <delete id="deleteShigongrenyuanByIds" parameterType="String">
+        delete from shigongrenyuan where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
